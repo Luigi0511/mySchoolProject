@@ -11,6 +11,7 @@ user = {}
 history = {}
 
 today = str(datetime.now().year) + str(datetime.now().month) + str(datetime.now().day)
+user_session = ""
 
 def loadData():
 	global user, history
@@ -57,7 +58,10 @@ def login():
 		return True
 
 def saveData():
-	global history
+	global history, user
+
+	with open(fileUser, "w") as f:
+		dump(user, f)
 
 	with open(fileHistory, "w") as f:
 		dump(history, f)
@@ -65,7 +69,7 @@ def saveData():
 	return True
 
 def introduce():
-	global history, today
+	global history, today, user_session
 
 	print('Hi there')
 	input('Say Hi : ')
@@ -79,7 +83,8 @@ def introduce():
 		data['Age'] = input("I'm (Type in number) ")
 		print('\nAre you a Boy or a girl ?')
 		data['Gender'] = input("I'm a  ")
-		data['Mood'] ={}
+		data['Mood'] = {}
+		data['Criticism'] = {}
 		history[user_name] = data
 
 		saveData()
@@ -100,11 +105,13 @@ def introduce():
 			list_user_mood.append(user_mood)
 			history[user_name]["Mood"][today] = list_user_mood
 
+
 		else:
 			user_mood = input(f'Are you still {history[user_name]["Mood"][today][0]} ? ')
 			history[user_name]["Mood"][today].append(user_mood)
 
 		print('\nHope you always cheerful and be a fortunate person.')
+		user_session = user_name
 		time.sleep(2)
 		saveData()
 
@@ -250,6 +257,8 @@ def about():
 	print('Program atau Aplikasi ini resmi dipublikasikan pada tanggal 26 Juni 2020 dengan nama "Message Application". Program atau Aplikasi ini dibuat oleh Luigi Emiliandra dalam bimbingan Sr. Anas Azhar (Guru Python di sekolah SMP/SMA Ignatius Global School) dan juga selaku penasehat dalam program atau aplikasi ini. Program atau aplikasi ini juga tidak lepas dari dukungan dari teman teman sepeguruan dan juga saran saran atas fitur - fitur yang ada di dalam aplikasi ini sehingga berjalan dengan baik dan lancar. Saya mengucapkan terima kasih banyak kepada semua orang yan telah membantu saya dalam membuat aplikasi maupun mendukung proses pembuatan aplikasi ini.')
 
 def satisfy():
+	global today, user_session, history
+
 	satisfy = input('Do you like this program ? (Y/N) ').upper()
 				
 	if satisfy == 'Y':
@@ -258,7 +267,21 @@ def satisfy():
 	elif satisfy == 'N':
 		criticism = input('\nDo you have any criticism to say ? (Y/N) ').upper()
 		if criticism == 'Y':
-			input('Input your criticism here : \n')
+			
+			if today not in history[user_session]["Criticism"]:
+
+				list_user_criticism = []
+
+				user_critic = input('Input your criticism here : \n')
+				
+				list_user_criticism.append(user_critic)
+				history[user_session]["Criticism"][today] = list_user_criticism
+
+
+			else:
+				user_critic = input('Input your more critic : \n')
+				history[user_session]["Criticism"][today].append(user_critic)
+
 
 		elif criticism == 'N':
 			print('\nOK. You may go. Thanks for trying. Bye !')
@@ -271,3 +294,4 @@ def satisfy():
 
 	saveData()
 	time.sleep(1)
+
