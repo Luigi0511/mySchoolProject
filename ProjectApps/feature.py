@@ -127,7 +127,7 @@ def print_qs():
 	print('7. Can you seduce me ?')
 	print('8. Can you make a joke for me ?')
 	print('9. What programming language your creator uses to make you ?')
-	print('10. Who is your creator teacher ?')
+	print("10. Who is your creator's teacher ?")
 	print('MATH. Calculating mathematics')
 	print('DEL. DELETE USER ACCOUNT ')
 	print('VIEW. View Username')
