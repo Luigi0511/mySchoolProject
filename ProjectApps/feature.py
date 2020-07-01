@@ -6,15 +6,17 @@ from datetime import datetime
 
 fileUser = 'user.json'
 fileHistory = 'history.json'
+fileAdmin = 'admin.json'
 
 user = {}
 history = {}
+admin = {}
 
 today = str(datetime.now().year) + str(datetime.now().month) + str(datetime.now().day)
 user_session = ""
 
 def loadData():
-	global user, history
+	global user, history, admin
 
 	with open(fileUser) as f:
 		user = load(f)
@@ -22,10 +24,13 @@ def loadData():
 	with open(fileHistory) as f:
 		history = load(f)
 
+	with open(fileAdmin) as f:
+		admin = load(f)
+
 	return True	
 
 def login():
-	print('\t Enter "LUIGI" as Username and enter "1234567890" as Password \n')
+	print('\t Enter "Luigi" as Username and enter "1234567890" as Password \n')
 	time.sleep(1)
 	counter = 1
 	Username = input('Username : ')
@@ -57,8 +62,41 @@ def login():
 		print('\tLogin Passed ! \n')
 		return True
 
+def login_admin():
+	print('Input Username and Password correctly')
+	counter = 1
+	Username = input('Username : ')
+	Password = getpass('Password : ')
+	dataCheck = False
+	passLogin = False  
+	if Username in admin:
+		dataCheck = True
+		passLogin = (admin[Username] == Password)
+	else:
+		dataCheck = False
+		passLogin = False
+
+	while not dataCheck or not passLogin:
+		counter += 1
+		if counter > 3:
+			return False
+		print('\tPlease Enter the correct Username or Password ! Try again !\n')
+		Username = input('Username : ')
+		Password = getpass('Password : ')
+		if Username in admin:
+			dataCheck = True
+			passLogin = (admin[Username] == Password)
+		else:
+			dataCheck = False
+			passLogin = False
+		
+	else:
+		print('\tLogin Passed ! \n')
+		time.sleep(2)
+		return True
+
 def saveData():
-	global history, user
+	global history, user, admin
 
 	with open(fileUser, "w") as f:
 		dump(user, f)
@@ -66,6 +104,8 @@ def saveData():
 	with open(fileHistory, "w") as f:
 		dump(history, f)
 
+	with open(fileAdmin, "w") as f:
+		dump(admin, f)
 	return True
 
 def introduce():
@@ -129,10 +169,12 @@ def print_qs():
 	print('9. What programming language your creator uses to make you ?')
 	print("10. Who is your creator's teacher ?")
 	print('MATH. Calculating mathematics')
-	print('DEL. DELETE USER ACCOUNT ')
-	print('VIEW. View Username')
 	print('ABOUT. About this application')
 	print('Q. Quit')
+
+def admin_qs():
+	print('DEL. DELETE USER ACCOUNT ')
+	print('VIEW. View Username')
 
 def qs_1():
 	print('My name is NewbieX-RoboPy.')
@@ -197,32 +239,458 @@ def mathCount():
 		math_qs = input('Type in number 1 - 7 or BACK : ').upper()
 
 		if math_qs == '1':
-			print(f'{math1} + {math2} = ', math1 + math2)
-			input('\n[ENTER] to Exit')
+			ans1 = math1 + math2
+			print(f'{math1} + {math2} = {ans1}')
+			thirdNum_qs = input('Do you want to Enter your 3rd number (Y/N) : ').upper()
+
+			if thirdNum_qs == 'Y':
+				math3 = int(input('Enter your 3rd number : '))
+				math3_qs = ''
+				while math3_qs != 'q':
+					system('cls')
+					print('Enter your choice so the robot will count your qs from the previous one with the third number')
+					print('1. Addition (+)')
+					print('2. Subtraction (-)')
+					print('3. Remainder (Modulo) (%)')
+					print('4. Division (/)')
+					print('5. Integer Division (//)')
+					print('6. Multiplication (*)')
+					print('7. Power (Exponentiation) (^)')
+					print('BACK. Exit from this tab, back to home')
+					math_qs_2nd = input('Type in number 1 - 7 or BACK : ').upper()
+
+					if math_qs_2nd == '1':
+						print(f'{ans1} + {math3} = ', ans1 + math3)
+						input('\n[ENTER] to Exit')
+
+					elif math_qs_2nd == '2':
+						print(f'{ans1} - {math3} = ', ans1 - math3)
+						input('\n[ENTER] to Exit')
+
+					elif math_qs_2nd == '3':
+						print(f'{ans1} % {math3} = ', ans1 % math3)
+						input('\n[ENTER] to Exit')
+
+					elif math_qs_2nd == '4':
+						print(f'{ans1} / {math3} = ', ans1 / math3)
+						input('\n[ENTER] to Exit')
+
+					elif math_qs_2nd == '5':
+						print(f'{ans1} // {math3} = ', ans1 // math3)
+						input('\n[ENTER] to Exit')
+
+					elif math_qs_2nd == '6':
+						print(f'{ans1} * {math3} = ', ans1 * math3)
+						input('\n[ENTER] to Exit')
+
+					elif math_qs_2nd == '7':
+						print(f'{ans1} ^ {math3} = ', ans1 ** math3)
+						input('\n[ENTER] to Exit')
+
+					elif math_qs_2nd == 'BACK':
+						break
+						print_qs()
+
+					else:
+						print('Please type in 1-7 or Back')
+						input('\n[ENTER] to Exit')
+			elif thirdNum_qs == 'N':
+				print('Okay, No problem')
+				input('\n[ENTER] to Exit')
+
+			else:
+				print('Please input letter Y or N')
+				input('\n[ENTER] to Exit')
 
 		elif math_qs == '2':
-			print(f'{math1} - {math2} = ', math1 - math2)
-			input('\n[ENTER] to Exit')
+			ans2 = math1 - math2
+			print(f'{math1} - {math2} = {ans2}')
+			thirdNum_qs = input('Do you want to Enter your 3rd number (Y/N) : ').upper()
+
+			if thirdNum_qs == 'Y':
+				math3 = int(input('Enter your 3rd number : '))
+				math3_qs = ''
+				while math3_qs != 'q':
+					system('cls')
+					print('Enter your choice so the robot will count your qs from the previous one with the third number')
+					print('1. Addition (+)')
+					print('2. Subtraction (-)')
+					print('3. Remainder (Modulo) (%)')
+					print('4. Division (/)')
+					print('5. Integer Division (//)')
+					print('6. Multiplication (*)')
+					print('7. Power (Exponentiation) (^)')
+					print('BACK. Exit from this tab, back to home')
+					math_qs_2nd = input('Type in number 1 - 7 or BACK : ').upper()
+
+					if math_qs_2nd == '1':
+						print(f'{ans2} + {math3} = ', ans2 + math3)
+						input('\n[ENTER] to Exit')
+
+					elif math_qs_2nd == '2':
+						print(f'{ans2} - {math3} = ', ans2 - math3)
+						input('\n[ENTER] to Exit')
+
+					elif math_qs_2nd == '3':
+						print(f'{ans2} % {math3} = ', ans2 % math3)
+						input('\n[ENTER] to Exit')
+
+					elif math_qs_2nd == '4':
+						print(f'{ans2} / {math3} = ', ans2 / math3)
+						input('\n[ENTER] to Exit')
+
+					elif math_qs_2nd == '5':
+						print(f'{ans2} // {math3} = ', ans2 // math3)
+						input('\n[ENTER] to Exit')
+
+					elif math_qs_2nd == '6':
+						print(f'{ans2} * {math3} = ', ans2 * math3)
+						input('\n[ENTER] to Exit')
+
+					elif math_qs_2nd == '7':
+						print(f'{ans2} ^ {math3} = ', ans2 ** math3)
+						input('\n[ENTER] to Exit')
+
+					elif math_qs_2nd == 'BACK':
+						break
+						print_qs()
+
+					else:
+						print('Please type in 1-7 or Back')
+						input('\n[ENTER] to Exit')
+			elif thirdNum_qs == 'N':
+				print('Okay, No problem')
+				input('\n[ENTER] to Exit')
+
+			else:
+				print('Please input letter Y or N')
+				input('\nENTER to Exit')
 
 		elif math_qs == '3':
-			print(f'{math1} % {math2} = ', math1 % math2)
-			input('\n[ENTER] to Exit')
+			ans3 = math1 % math2
+			print(f'{math1} % {math2} = {ans3}')
+			thirdNum_qs = input('Do you want to Enter your 3rd number (Y/N) : ').upper()
+
+			if thirdNum_qs == 'Y':
+				math3 = int(input('Enter your 3rd number : '))
+				math3_qs = ''
+				while math3_qs != 'q':
+					system('cls')
+					print('Enter your choice so the robot will count your qs from the previous one with the third number')
+					print('1. Addition (+)')
+					print('2. Subtraction (-)')
+					print('3. Remainder (Modulo) (%)')
+					print('4. Division (/)')
+					print('5. Integer Division (//)')
+					print('6. Multiplication (*)')
+					print('7. Power (Exponentiation) (^)')
+					print('BACK. Exit from this tab, back to home')
+					math_qs_2nd = input('Type in number 1 - 7 or BACK : ').upper()
+
+					if math_qs_2nd == '1':
+						print(f'{ans3} + {math3} = ', ans3 + math3)
+						input('\n[ENTER] to Exit')
+
+					elif math_qs_2nd == '2':
+						print(f'{ans3} - {math3} = ', ans3 - math3)
+						input('\n[ENTER] to Exit')
+
+					elif math_qs_2nd == '3':
+						print(f'{ans3} % {math3} = ', ans3 % math3)
+						input('\n[ENTER] to Exit')
+
+					elif math_qs_2nd == '4':
+						print(f'{ans3} / {math3} = ', ans3 / math3)
+						input('\n[ENTER] to Exit')
+
+					elif math_qs_2nd == '5':
+						print(f'{ans3} // {math3} = ', ans3 // math3)
+						input('\n[ENTER] to Exit')
+
+					elif math_qs_2nd == '6':
+						print(f'{ans3} * {math3} = ', ans3 * math3)
+						input('\n[ENTER] to Exit')
+
+					elif math_qs_2nd == '7':
+						print(f'{ans3} ^ {math3} = ', ans3 ** math3)
+						input('\n[ENTER] to Exit')
+
+					elif math_qs_2nd == 'BACK':
+						break
+						print_qs()
+
+					else:
+						print('Please type in 1-7 or Back')
+						input('\n[ENTER] to Exit')
+			elif thirdNum_qs == 'N':
+				print('Okay, No problem')
+				input('\n[ENTER] to Exit')
+
+			else:
+				print('Please input letter Y or N')
+				input('\nENTER to Exit')
+
 
 		elif math_qs == '4':
-			print(f'{math1} / {math2} = ', math1 / math2)
-			input('\n[ENTER] to Exit')
+			ans4 = math1 / math2
+			print(f'{math1} / {math2} = {ans4}')
+			thirdNum_qs = input('Do you want to Enter your 3rd number (Y/N) : ').upper()
+
+			if thirdNum_qs == 'Y':
+				math3 = int(input('Enter your 3rd number : '))
+				math3_qs = ''
+				while math3_qs != 'q':
+					system('cls')
+					print('Enter your choice so the robot will count your qs from the previous one with the third number')
+					print('1. Addition (+)')
+					print('2. Subtraction (-)')
+					print('3. Remainder (Modulo) (%)')
+					print('4. Division (/)')
+					print('5. Integer Division (//)')
+					print('6. Multiplication (*)')
+					print('7. Power (Exponentiation) (^)')
+					print('BACK. Exit from this tab, back to home')
+					math_qs_2nd = input('Type in number 1 - 7 or BACK : ').upper()
+
+					if math_qs_2nd == '1':
+						print(f'{ans4} + {math3} = ', ans4 + math3)
+						input('\n[ENTER] to Exit')
+
+					elif math_qs_2nd == '2':
+						print(f'{ans4} - {math3} = ', ans4 - math3)
+						input('\n[ENTER] to Exit')
+
+					elif math_qs_2nd == '3':
+						print(f'{ans4} % {math3} = ', ans4 % math3)
+						input('\n[ENTER] to Exit')
+
+					elif math_qs_2nd == '4':
+						print(f'{ans4} / {math3} = ', ans4 / math3)
+						input('\n[ENTER] to Exit')
+
+					elif math_qs_2nd == '5':
+						print(f'{ans4} // {math3} = ', ans4 // math3)
+						input('\n[ENTER] to Exit')
+
+					elif math_qs_2nd == '6':
+						print(f'{ans4} * {math3} = ', ans4 * math3)
+						input('\n[ENTER] to Exit')
+
+					elif math_qs_2nd == '7':
+						print(f'{ans4} ^ {math3} = ', ans4 ** math3)
+						input('\n[ENTER] to Exit')
+
+					elif math_qs_2nd == 'BACK':
+						break
+						print_qs()
+
+					else:
+						print('Please type in 1-7 or Back')
+						input('\n[ENTER] to Exit')
+			elif thirdNum_qs == 'N':
+				print('Okay, No problem')
+				input('\n[ENTER] to Exit')
+
+			else:
+				print('Please input letter Y or N')
+				input('\nENTER to Exit')
+
 
 		elif math_qs == '5':
-			print(f'{math1} // {math2} = ', math1 // math2)
-			input('\n[ENTER] to Exit')
+			ans5 = math1 // math2
+			print(f'{math1} // {math2} = {ans5}')
+			thirdNum_qs = input('Do you want to Enter your 3rd number (Y/N) : ').upper()
+
+			if thirdNum_qs == 'Y':
+				math3 = int(input('Enter your 3rd number : '))
+				math3_qs = ''
+				while math3_qs != 'q':
+					system('cls')
+					prinnt('Enter your choice so the robot will count your qs from the previous one with the third number')
+					print('1. Addition (+)')
+					print('2. Subtraction (-)')
+					print('3. Remainder (Modulo) (%)')
+					print('4. Division (/)')
+					print('5. Integer Division (//)')
+					print('6. Multiplication (*)')
+					print('7. Power (Exponentiation) (^)')
+					print('BACK. Exit from this tab, back to home')
+					math_qs_2nd = input('Type in number 1 - 7 or BACK : ').upper()
+
+					if math_qs_2nd == '1':
+						print(f'{ans5} + {math3} = ', ans5 + math3)
+						input('\n[ENTER] to Exit')
+
+					elif math_qs_2nd == '2':
+						print(f'{ans5} - {math3} = ', ans5 - math3)
+						input('\n[ENTER] to Exit')
+
+					elif math_qs_2nd == '3':
+						print(f'{ans5} % {math3} = ', ans5 % math3)
+						input('\n[ENTER] to Exit')
+
+					elif math_qs_2nd == '4':
+						print(f'{ans5} / {math3} = ', ans5 / math3)
+						input('\n[ENTER] to Exit')
+
+					elif math_qs_2nd == '5':
+						print(f'{ans5} // {math3} = ', ans5 // math3)
+						input('\n[ENTER] to Exit')
+
+					elif math_qs_2nd == '6':
+						print(f'{ans5} * {math3} = ', ans5 * math3)
+						input('\n[ENTER] to Exit')
+
+					elif math_qs_2nd == '7':
+						print(f'{ans5} ^ {math3} = ', ans5 ** math3)
+						input('\n[ENTER] to Exit')
+
+					elif math_qs_2nd == 'BACK':
+						break
+						print_qs()
+
+					else:
+						print('Please type in 1-7 or Back')
+						input('\n[ENTER] to Exit')
+			elif thirdNum_qs == 'N':
+				print('Okay, No problem')
+				input('\n[ENTER] to Exit')
+
+			else:
+				print('Please input letter Y or N')
+				input('\n[ENTER] to Exit')
+
 
 		elif math_qs == '6':
-			print(f'{math1} * {math2} = ', math1 * math2)
-			input('\n[ENTER] to Exit')
+			ans6 = math1 * math2
+			print(f'{math1} * {math2} = {ans6}')
+			thirdNum_qs = input('Do you want to Enter your 3rd number (Y/N) : ').upper()
+
+			if thirdNum_qs == 'Y':
+				math3 = int(input('Enter your 3rd number : '))
+				math3_qs = ''
+				while math3_qs != 'q':
+					system('cls')
+					prinnt('Enter your choice so the robot will count your qs from the previous one with the third number')
+					print('1. Addition (+)')
+					print('2. Subtraction (-)')
+					print('3. Remainder (Modulo) (%)')
+					print('4. Division (/)')
+					print('5. Integer Division (//)')
+					print('6. Multiplication (*)')
+					print('7. Power (Exponentiation) (^)')
+					print('BACK. Exit from this tab, back to home')
+					math_qs_2nd = input('Type in number 1 - 7 or BACK : ').upper()
+
+					if math_qs_2nd == '1':
+						print(f'{ans6} + {math3} = ', ans6 + math3)
+						input('\n[ENTER] to Exit')
+
+					elif math_qs_2nd == '2':
+						print(f'{ans6} - {math3} = ', ans6 - math3)
+						input('\n[ENTER] to Exit')
+
+					elif math_qs_2nd == '3':
+						print(f'{ans6} % {math3} = ', ans6 % math3)
+						input('\n[ENTER] to Exit')
+
+					elif math_qs_2nd == '4':
+						print(f'{ans6} / {math3} = ', ans6 / math3)
+						input('\n[ENTER] to Exit')
+
+					elif math_qs_2nd == '5':
+						print(f'{ans6} // {math3} = ', ans6 // math3)
+						input('\n[ENTER] to Exit')
+
+					elif math_qs_2nd == '6':
+						print(f'{ans6} * {math3} = ', ans6 * math3)
+						input('\n[ENTER] to Exit')
+
+					elif math_qs_2nd == '7':
+						print(f'{ans6} ^ {math3} = ', ans6 ** math3)
+						input('\n[ENTER] to Exit')
+
+					elif math_qs_2nd == 'BACK':
+						break
+						print_qs()
+
+					else:
+						print('Please type in 1-7 or Back')
+						input('\n[ENTER] to Exit')
+			elif thirdNum_qs == 'N':
+				print('Okay, No problem')
+				input('\n[ENTER] to Exit')
+
+			else:
+				print('Please input letter Y or N')
+				input('\n[ENTER] to Exit')
+
 
 		elif math_qs == '7':
-			print(f'{math1} ^ {math2} = ', math1 ** math2)
-			input('\n[ENTER] to Exit')
+			ans7 = math1 ** math2
+			print(f'{math1} ^ {math2} = {ans7}')
+			thirdNum_qs = input('Do you want to Enter your 3rd number (Y/N) : ').upper()
+
+			if thirdNum_qs == 'Y':
+				math3 = int(input('Enter your 3rd number : '))
+				math3_qs = ''
+				while math3_qs != 'q':
+					system('cls')
+					prinnt('Enter your choice so the robot will count your qs from the previous one with the third number')
+					print('1. Addition (+)')
+					print('2. Subtraction (-)')
+					print('3. Remainder (Modulo) (%)')
+					print('4. Division (/)')
+					print('5. Integer Division (//)')
+					print('6. Multiplication (*)')
+					print('7. Power (Exponentiation) (^)')
+					print('BACK. Exit from this tab, back to home')
+					math_qs_2nd = input('Type in number 1 - 7 or BACK : ').upper()
+
+					if math_qs_2nd == '1':
+						print(f'{ans7} + {math3} = ', ans7 + math3)
+						input('\n[ENTER] to Exit')
+
+					elif math_qs_2nd == '2':
+						print(f'{ans7} - {math3} = ', ans7 - math3)
+						input('\n[ENTER] to Exit')
+
+					elif math_qs_2nd == '3':
+						print(f'{ans7} % {math3} = ', ans7 % math3)
+						input('\n[ENTER] to Exit')
+
+					elif math_qs_2nd == '4':
+						print(f'{ans7} / {math3} = ', ans7 / math3)
+						input('\n[ENTER] to Exit')
+
+					elif math_qs_2nd == '5':
+						print(f'{ans7} // {math3} = ', ans7 // math3)
+						input('\n[ENTER] to Exit')
+
+					elif math_qs_2nd == '6':
+						print(f'{ans7} * {math3} = ', ans7 * math3)
+						input('\n[ENTER] to Exit')
+
+					elif math_qs_2nd == '7':
+						print(f'{ans7} ^ {math3} = ', ans7 ** math3)
+						input('\n[ENTER] to Exit')
+
+					elif math_qs_2nd == 'BACK':
+						break
+						print_qs()
+
+					else:
+						print('Please type in 1-7 or Back')
+						input('\n[ENTER] to Exit')
+						
+			elif thirdNum_qs == 'N':
+				print('Okay, No problem')
+				input('\n[ENTER] to Exit')
+
+			else:
+				print('Please input letter Y or N')
+				input('\n[ENTER] to Exit')
+
 
 		elif math_qs == 'BACK':
 			break
@@ -301,4 +769,3 @@ def satisfy():
 
 	saveData()
 	time.sleep(1)
-
