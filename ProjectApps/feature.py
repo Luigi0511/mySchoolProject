@@ -6,11 +6,9 @@ from datetime import datetime
 
 fileUser = 'user.json'
 fileHistory = 'history.json'
-fileAdmin = 'admin.json'
 
 user = {}
 history = {}
-admin = {}
 
 today = str(datetime.now().year) + str(datetime.now().month) + str(datetime.now().day)
 user_session = ""
@@ -24,13 +22,10 @@ def loadData():
 	with open(fileHistory) as f:
 		history = load(f)
 
-	with open(fileAdmin) as f:
-		admin = load(f)
-
 	return True	
 
 def login():
-	print('\t Enter "Luigi" as Username and enter "1234567890" as Password \n')
+	print('\t Enter Luigi as Admin and Enter Budi as User and the Password is 1234567890 \n')
 	time.sleep(1)
 	counter = 1
 	Username = input('Username : ')
@@ -39,7 +34,7 @@ def login():
 	passLogin = False  
 	if Username in user:
 		dataCheck = True
-		passLogin = (user[Username] == Password)
+		passLogin = (user[Username][0] == Password)
 	else:
 		dataCheck = False
 		passLogin = False
@@ -47,53 +42,22 @@ def login():
 	while not dataCheck or not passLogin:
 		counter += 1
 		if counter > 3:
-			return False
+			return False, 0
 		print('\tPlease Enter the correct Username or Password ! Try again !\n')
 		Username = input('Username : ')
 		Password = getpass('Password : ')
 		if Username in user:
 			dataCheck = True
-			passLogin = (user[Username] == Password)
+			passLogin = (user[Username][0] == Password)
 		else:
 			dataCheck = False
 			passLogin = False
 		
 	else:
+		level = user[Username][1]
 		print('\tLogin Passed ! \n')
-		return True
+		return True, level
 
-def login_admin():
-	print('Input Username and Password correctly')
-	counter = 1
-	Username = input('Username : ')
-	Password = getpass('Password : ')
-	dataCheck = False
-	passLogin = False  
-	if Username in admin:
-		dataCheck = True
-		passLogin = (admin[Username] == Password)
-	else:
-		dataCheck = False
-		passLogin = False
-
-	while not dataCheck or not passLogin:
-		counter += 1
-		if counter > 3:
-			return False
-		print('\tPlease Enter the correct Username or Password ! Try again !\n')
-		Username = input('Username : ')
-		Password = getpass('Password : ')
-		if Username in admin:
-			dataCheck = True
-			passLogin = (admin[Username] == Password)
-		else:
-			dataCheck = False
-			passLogin = False
-		
-	else:
-		print('\tLogin Passed ! \n')
-		time.sleep(2)
-		return True
 
 def saveData():
 	global history, user, admin
@@ -104,8 +68,6 @@ def saveData():
 	with open(fileHistory, "w") as f:
 		dump(history, f)
 
-	with open(fileAdmin, "w") as f:
-		dump(admin, f)
 	return True
 
 def introduce():
@@ -762,10 +724,10 @@ def satisfy():
 			print('\nOK. You may go. Thanks for trying. Bye !')
 
 		else:
-			print('Type in letter Y or N !')
+			print('Next time, Type in letter Y or N. Bye !')
 
 	else:
-		print('Type in letter Y or N !')
+		print('Next time, Type in letter Y or N. Bye !')
 
 	saveData()
 	time.sleep(1)
