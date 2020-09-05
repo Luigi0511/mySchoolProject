@@ -25,7 +25,7 @@ def loadData():
 	return True	
 
 def login():
-	print('\t Enter Luigi as Admin and Enter Budi as User and the Password is 1234567890 \n')
+	print('\t Enter "ADMIN" as Admin and Enter "USER" as User and the Password is 1234567890 \n')
 	time.sleep(1)
 	counter = 1
 	Username = input('Username : ')
@@ -57,7 +57,6 @@ def login():
 		level = user[Username][1]
 		print('\tLogin Passed ! \n')
 		return True, level
-
 
 def saveData():
 	global history, user, admin
@@ -121,7 +120,7 @@ def print_qs():
 	print('Welcome to Message Apps')
 	print('These are the Questions for the robot.')
 	print('1. What is your name ?')
-	print('2. How old are you ?')
+	print('2. When was you born ?')
 	print('3. Who created you ?')
 	print('4. Where do you live ?')
 	print('5. What is your ambition ?')
@@ -142,7 +141,7 @@ def qs_1():
 	print('My name is NewbieX-RoboPy.')
 
 def qs_2():
-	print('I was born at June / 26 / 2020. You can count my age.')
+	print('I was born at June / 26 / 2020.')
 
 def qs_3():
 	print('My creator is Luigi Emiliandra.')
