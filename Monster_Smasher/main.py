@@ -448,8 +448,8 @@ Passed : Score -15, Life -1
 
 			boss_description = """
 Prehistoric Giant Turtle a.k.a Boss
-10 Taps required
-Killed : Score +50
+Not Available in Game
+Bcz Technical Problem
 			"""
 
 			boss_description_label = Label(window, text=boss_description, font=('arial', 12))
