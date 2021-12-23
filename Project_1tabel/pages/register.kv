@@ -1,0 +1,106 @@
+Screen:
+	name: "register"
+	
+	MDFloatLayout:
+		md_bg_color: 0,0,0,0
+
+		Image:
+			source: "assets/img/default.png"
+			size_hint: (.5, .5)
+			pos_hint:{"center_x":.5, "center_y":.85}
+
+		MDLabel:
+			pos_hint:{"center_x":.725, "center_y":.7}
+			text: "Let's create your account"
+			color: 1, 0, 0, 1
+			font_name: "Roboto"
+			font_size: 18
+			bold: True
+
+		BoxLayout:
+			orientation: "vertical"
+			size_hint: (0.85, 0.5)
+			padding: (30, 10, 30, 30)
+			pos_hint: {"center_x": 0.5, "center_y": 0.4}
+
+			Label:
+				id: taken
+				color: 1, 0, 0, 1
+				font_name: "Roboto"
+				font_size: 12
+				text: ""
+				bold: True
+
+			TextInput:
+				id: new_username_entry
+				hint_text: "Username"
+				multiline: False
+				write_tab: False
+
+			TextInput:
+				id: new_password_entry
+				hint_text: "Password"
+				password: True
+				multiline: False
+				write_tab: False
+
+			TextInput:
+				id: first_name
+				hint_text: "First Name"
+				multiline: False
+				write_tab: False
+
+			TextInput:
+				id: last_name
+				hint_text: "Last Name"
+				multiline: False
+				write_tab: False
+
+
+			BoxLayout:
+				orientation: "horizontal"
+
+				TextInput:
+					id: birthday_day
+					hint_text: "Day"
+					multiline: False
+					write_tab: False
+
+				TextInput:
+					id: birthday_month
+					hint_text: "Month"
+					multiline: False
+					write_tab: False
+
+				TextInput:
+					id: birthday_year
+					hint_text: "Year"
+					multiline: False
+					write_tab: False
+
+			Label:
+				text: ""
+
+			Button:
+				text: "Register"
+				font_name: "Roboto"
+				font_size: 20
+				bold: True
+				background_color: 1,0,0,1
+				on_press: app.register()
+
+			Button:
+				text: "Back"
+				font_name: "Roboto"
+				font_size: 20
+				bold: True
+				background_color: 1,0,0,1
+				on_press: app.back_to_login_page()
+
+			Label:
+				id: back_text
+				color: 0, 0, 1, 1
+				font_name: "Roboto"
+				font_size: 12
+				text: ""
+				bold: True

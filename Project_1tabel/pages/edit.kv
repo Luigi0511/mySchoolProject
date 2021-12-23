@@ -1,0 +1,129 @@
+Screen:
+	name: "edit"
+
+	MDFloatLayout:
+		md_bg_color: 0,0,0,0
+
+		Image:
+			source: "assets/img/default.png"
+			size_hint: (.5, .5)
+			pos_hint:{"center_x":.5, "center_y":.85}
+
+		MDLabel:
+			id: warning
+			pos_hint:{"center_x":.725, "center_y":.7}
+			text: ""
+			color: 1, 0, 0, 1
+			font_name: "Roboto"
+			font_size: 18
+			bold: True
+
+		BoxLayout:
+			orientation: "vertical"
+			size_hint: (1, 0.25)
+			padding: (30, 10, 30, 30)
+			pos_hint: {"center_x": 0.5, "center_y": 0.4}
+
+			BoxLayout:
+				orientation: "horizontal"
+
+				MDLabel:
+					text: "New Username :"
+					halign: "left"
+
+				TextInput:
+					id: new_username_entry
+					text: ""
+					multiline: False
+					write_tab: False
+
+			BoxLayout:
+				orientation: "horizontal"
+
+				MDLabel:
+					text: "New First Name :"
+					halign: "left"
+
+				TextInput:
+					id: first_name
+					text: ""
+					multiline: False
+					write_tab: False
+
+			BoxLayout:
+				orientation: "horizontal"
+
+				MDLabel:
+					text: "New Last Name :"
+					halign: "left"
+
+				TextInput:
+					id: last_name
+					text: ""
+					multiline: False
+					write_tab: False
+
+
+			BoxLayout:
+				orientation: "horizontal"
+
+				MDLabel:
+					text: "New Birthday :"
+					halign: "left"
+
+				TextInput:
+					id: birthday_day
+					text: ""
+					multiline: False
+					write_tab: False
+
+				TextInput:
+					id: birthday_month
+					text: ""
+					multiline: False
+					write_tab: False
+
+				TextInput:
+					id: birthday_year
+					text: ""
+					multiline: False
+					write_tab: False
+
+		BoxLayout:
+			orientation: "horizontal"
+
+			Button:
+				text: "Save"
+				size_hint: .75, .05
+				pos_hint: {"center_x":.7, "center_y":.1}
+				background_color: 0,0,0,0
+				font_name: "Roboto"
+				font_size: "18sp"
+				bold: True
+				on_press: app.save_edited_profile()
+
+				canvas.before:
+					Color:
+						rgb: 202/255, 0, 13/255, 1
+					RoundedRectangle:
+						size: self.size
+						pos: self.pos
+						radius: [15]
+
+			Button:
+				text: "Cancel"
+				size_hint: .75, .05
+				pos_hint: {"center_x":.3, "center_y":.1}
+				background_color: 0,0,0,0
+				font_name: "Roboto"
+				font_size: "18sp"
+				bold: True
+				on_press: app.to_dashboard()
+
+				canvas.before:
+					Color:
+						rgb: 202/255, 0, 13/255, 1
+					RoundedRectangle:
+						size: self.size
+						pos: self.pos
+						radius: [15]

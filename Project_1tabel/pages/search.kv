@@ -1,0 +1,101 @@
+Screen:
+    name: "search"
+
+    MDFloatLayout:
+        size_hint: 1, .1
+        pos_hint: {"center_y": 0.95}
+        md_bg_color: rgba(255, 255, 255, 255) # 1,1,1,1
+
+        TextInput:
+            id: input
+            hint_text: "Search"
+            pos_hint: {'center_x':.45, 'center_y':.5}
+            size_hint: 0.8, 0.5
+            multiline: False
+            write_tab: False
+
+        MDIconButton:
+            icon: "magnify"
+            pos_hint: {"center_x": .925, "center_y": .5}
+            on_press: app.search()
+
+    MDFloatLayout:
+        size_hint: 1, .8
+        pos_hint: {"center_y": 0.5}
+        md_bg_color: rgba(255, 255, 255, 255) # 1,1,1,1
+
+        Image:
+            id: profile_pic
+            source: "assets/img/default.png"
+            size_hint_y: .25
+            pos_hint: {"center_x":.25, "center_y":.8}
+
+            canvas.before:
+                Color:
+                    rgba: rgba(202, 0, 13, 255)
+                Ellipse:
+                    size: 150, 150
+                    pos: self.center_x - 75, self.center_y - 75
+
+        MDLabel:
+            id: status
+            text: "..."
+            font_name: "Roboto"
+            font_size: "16sp"
+            halign: "center"
+            pos_hint: {"center_x":.5, "center_y": .1}
+            color: rgba(202, 0, 13, 255)
+            bold: True
+
+        MDLabel:
+            id: label_username
+            text: "Username"
+            font_name: "Roboto"
+            font_size: "16sp"
+            halign: "center"
+            pos_hint: {"center_x":.7, "center_y": .8}
+            color: rgba(202, 0, 13, 255)
+            bold: True
+
+        MDLabel:
+            id: label_name
+            text: "Name"
+            font_name: "Roboto"
+            font_size: "16sp"
+            halign: "left"
+            pos_hint: {"center_x":.55, "center_y": .6}
+            color: rgba(202, 0, 13, 255)
+            bold: True
+
+        MDLabel:
+            id: label_birth
+            text: "Birthday"
+            font_name: "Roboto"
+            font_size: "16sp"
+            halign: "left"
+            pos_hint: {"center_x":.55, "center_y": .55}
+            color: rgba(202, 0, 13, 255)
+            bold: True
+
+    MDFloatLayout:
+        size_hint: 1, .2
+        pos_hint: {"center_y": 0.05}
+        md_bg_color: rgba(255, 255, 255, 255) # 1,1,1,1
+
+        Button:
+            text: "My Profile"
+            size_hint: .3, .3
+            pos_hint: {"center_x":.5, "center_y":.5}
+            background_color: 0,0,0,0
+            font_name: "Roboto"
+            font_size: "15sp"
+            bold: True
+            on_press: app.to_dashboard()
+
+            canvas.before:
+                Color:
+                    rgb: 202/255, 0, 13/255, 1
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [15]
